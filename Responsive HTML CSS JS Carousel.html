@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive HTML CSS JS Carousel Example</title>
+    <style>
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 12.5%;
+            margin-bottom: auto;
+            overflow: scroll;
+        }
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+
+        .imgArea{
+            width: 400px; /* Set a fixed width for the image area. */
+            height: 250px; /* Set a fixed height for the image area. */
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        .carousel-controls button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="carousel">
+    <!-- Previous Slide command button -->
+    <button onclick="prevSlide()">Prev</button>
+    <!-- Container defining the Image Area -->
+    <div class="imgArea">
+        <img src="./img_carousel/image1.jpg" alt="Image 1" class="active">
+        <img src="./img_carousel/image2.jpg" alt="Image 2">
+        <img src="./img_carousel/image3.jpg" alt="Image 3">
+    </div>
+    <!-- Next Slide command button -->
+    <button onclick="nextSlide()">Next</button>
+</div>
+<!-- JavaScript "sliding carousel" -->
+<script>
+    let currentSlide = 0; // Initialize the Current Slide to 0
+    const slides = document.querySelectorAll('.carousel img'); // Obtain all IMG Tags that are contained in DIV CLASS "carousel"
+
+    // Function Definition
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index); // Set the Active IMG Tag
+        });
+    }
+
+    // Advance the slide
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide); // Display the active image
+    }
+
+    // Reverse the slide
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide); // Display the active image
+    }
+</script>
+</body>
+</html>
