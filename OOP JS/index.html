@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>JavaScript Demonstration</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/index.js"></script>
 </head>
 <body>
     <div class="Wrapper">
         <h1>JavaScript Demonstration</h1>
-        <form id="frm_Main" method="get">
+        <form id="frm_Main">
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName" placeholder="Jason" required>
             <br>
@@ -18,9 +18,11 @@
             <br>
             <label for="email">E-mail Address:</label>
             <input type="email" id="email" placeholder="example@example.com">
-            <button id="submitBtn" type="submit" onclick="compose_Obj()">Compose A Person Object</button>
+            <button type="button" id="btn_Submit" onclick="compose_Obj()">Compose A Person Object</button>
         </form>
-        <p id="output"></p>
+        <div id="output">
+
+        </div>
     </div>
 </body>
 </html>

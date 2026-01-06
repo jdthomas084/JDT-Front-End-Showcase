@@ -2,7 +2,6 @@
 // authored by Joshua D. Thomas, GR Student at Wilmington University
 // January 05, 2026,
 // After defining a function, and declaring an Object, example usage is shown.
-
 function compose_Obj() {
     const Name = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
     const Email = document.getElementById("email").value.toString();
@@ -32,6 +31,12 @@ function compose_Obj() {
     alert(user1.greet());          // "Hello, [First Name and Last Name], [E-mail]]!"
     // CALL the updateEmail() Method
     user1.updateEmail("jdthomas084@gmail.com");
-    // CALL the greet() Method
-    alert(user1.greet());// "Hello, [First Name and Last Name], [jdthomas084@gmail.com]!"
+
+    // Save the Element
+    const elem = document.getElementById("output");
+    // Build on the Previous Element
+    const elem1 = document.createElement("p");
+
+    // Insert the data onto the Page
+    elem.appendChild(elem1).innerText = "Updated Email: " + user1.email.toString();
 }
