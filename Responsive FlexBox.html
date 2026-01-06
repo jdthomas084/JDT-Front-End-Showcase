@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- This is a sample HTML Document
+    Demonstrating a Straightforward HTML
+    Implementation, and HTML/CSS Commenting; and
+    the code results in a Responsive FlexBox.
+    
+    Author: Joshua D. Thomas, Wilmington University 
+    January 06, 2026 
+-->
+<html lang="en">
+<!-- Document Head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive FlexBox DEMO by Joshua D. Thomas</title>
+    <!-- CSS -->
+    <style>
+        body{
+            background-color: black; /* Set the Background color */
+            font-size: 18pt; /* Set the Font size */
+        }
+
+        h1{
+            /* Heading 1 Style Definition */
+            color: white;
+            text-align: center;
+        }
+
+        h2{
+            /* Heading 2 Style Definition */
+            color: white;
+            text-align: center;
+        }
+
+        h3{
+            /* Heading 3 Style Definition */
+            color: white;
+            text-align: center;
+        }
+
+        .row{
+            display: flex;
+            flex-flow: row;
+            margin:15px auto;;
+        }
+
+        /* Apply Styles To Each CLASS beginning with "col-" */
+        [class*="col-"]{
+            background-color: #115e17; /* Set the Background color */
+            margin-left: .5%; /* Set the Left margin */
+            margin-right: .5%; /* Set the Right margin */
+            min-height: 100px;
+        }
+
+
+        /* Style Definition for CLASS attribute */
+        .col-3{
+            width: 24%;
+        }
+
+        /* Style Definition for CLASS attribute */
+        .col-4{
+            width: 32.33%;
+        }
+
+        /* Style Definition for CLASS attribute */
+        .col-6{
+            width: 49%;
+        }
+
+        /* Style Definition for CLASS attribute */
+        .col-12{
+            width: 99%;
+        }
+
+        /* Style Definition for Media Type SCREEN */
+        @media screen and (max-width: 600px) {
+            [class*="col-"]{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<!-- Document Body -->
+<body>
+    <!-- HEADING 1 -->
+    <h1>Welcome to My Sample HTML Document</h1>
+    <p>This is a simple HTML document to demonstrate the structure of an HTML file.</p>
+    <!-- DIV CONTAINER -->
+    <div class="container">
+        <!-- Row 1 -->
+        <div class="row">   
+            <div class="col-12">
+                <h1>Full Width Column</h1>
+            </div>
+        </div>
+        <!-- Row 2 -->
+        <div class="row">   
+            <div class="col-6">
+                <h2>Half Width Column</h2>
+            </div>
+            <div class="col-6">
+                <h2>Half Width Column</h2>
+            </div>
+        </div>
+        <!-- Row 3 -->
+        <div class="row">   
+            <div class="col-4"><h3>Quarter Width Column</h3></div>
+            <div class="col-4"><h3>Quarter Width Column</h3></div>
+            <div class="col-4"><h3>Quarter Width Column</h3></div>
+            <div class="col-4"><h3>Quarter Width Column</h3></div>
+        </div>
+    </div>
+</body>
+<!-- END HTML -->
+</html>
