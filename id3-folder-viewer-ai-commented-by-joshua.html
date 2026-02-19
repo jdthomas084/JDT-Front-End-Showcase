@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Title of Web Page -->
+  <title>ID3 Folder Viewer</title>
+  <style>
+    /* Page base styles */
+    body {
+
+      font-family: system-ui, sans-serif;   /* Use the system UI font stack with a fallback */
+      margin: 1.5rem;                       /* Add space around the page */
+    }
+
+    /* Button appearance */
+    button {
+      padding: 0.5rem 1rem;                 /* Vertical and horizontal padding */
+      font-size: 1rem;                      /* Base font size for buttons */
+    }
+
+    /* Table layout and sizing */
+    table {
+      border-collapse: collapse;            /* Remove gaps between table borders */
+      margin-top: 1rem;                     /* Space above the table */
+      width: 100%;                          /* Make table responsive to container width */
+      max-width: 900px;                     /* Limit maximum width for readability */
+    }
+
+    /* Table cell borders and spacing */
+    th, td {
+      border: 1px solid #ccc;               /* light gray border */
+      padding: 0.35rem 0.5rem;              /* compact cell padding */
+      font-size: 0.9rem;                    /* slightly smaller text */
+    }
+
+    /* Header row styling */
+    th {
+      background: #f3f3f3;                  /* subtle header background */
+      text-align: left;                     /* align header text to the left */
+    }
+
+    /* Zebra striping for table rows */
+    tbody tr:nth-child(even) {
+      background: #fafafa;                  /* alternate row background */
+    }
+  </style>
+  <!-- jsmediatags CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
+</head>
+<body>
+  <h1>ID3 Tag Viewer (Folder)</h1>
+  <p>
+    <button id="pick-folder">Select Folder of MP3s</button>
+  </p>
+
+  <table id="results" aria-label="ID3 tag list">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Track</th>
+        <th>Year</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    // Declare variables
+    const pickFolderBtn = document.getElementById('pick-folder');
+    const tbody = document.querySelector('#results tbody');
+
+    // Activate this Function when a "pcikFolderBtn" is 'clicked'
+    async function handlePickFolder() {
+      tbody.innerHTML = '';// Clear any existing rows in the table body before adding new ones
+
+      // Ask user to pick a folder
+      let dirHandle;
+      try {
+        dirHandle = await window.showDirectoryPicker();// Return a directory handle for the chosen folder
+      } catch (err) {
+        console.error('Folder selection cancelled or failed:', err);// User cancelled or the picker failed —
+                                                                    // log and stop further processing
+        return;
+      }
+
+      // Iterate over entries in the directory handle asynchronously
+      for await (const entry of dirHandle.values()) {
+        // Only process file entries that end with .mp3 (case-insensitive)
+        if (entry.kind === 'file' && entry.name.toLowerCase().endsWith('.mp3')) {
+          const file = await entry.getFile();// Get a File object from the entry and read its ID3 tags
+          readId3ForFile(file, entry.name);
+        }
+      }
+    }
+
+    /**
+     * Read ID3 tags from a File/Blob using jsmediatags and add a row to the table.
+     *
+     * @param {File|Blob} file - The audio file to read tags from.
+     * @param {string} fileName - The original file name (used for display).
+     */
+    function readId3ForFile(file, fileName) {
+      // jsmediatags expects a File/Blob
+      window.jsmediatags.read(file, {
+        onSuccess: function(tag) {
+          const tags = tag.tags || {};// tag.tags may be undefined; default to an empty object
+          // Add a row with the extracted tag values (fall back to empty strings)
+          addRow({
+            fileName,
+            title: tags.title || '',
+            artist: tags.artist || '',
+            album: tags.album || '',
+            track: tags.track || '',
+            year: tags.year || ''
+          });
+        },
+        // Warn about the failure to read tags and add a placeholder row
+        onError: function(error) {
+          console.warn('Error reading tags for', fileName, error);
+          addRow({
+            fileName,
+            title: '[Error reading tags]',
+            artist: '',
+            album: '',
+            track: '',
+            year: ''
+          });
+        }
+      });
+    }
+
+    /**
+     * Create a table row (<tr>) and append cells for file metadata, then append to tbody.
+     *
+     * @param {Object} param0 - Object containing file metadata fields.
+     * @param {string} param0.fileName - File name to display.
+     * @param {string} param0.title - Track title.
+     * @param {string} param0.artist - Artist name.
+     * @param {string} param0.album - Album name.
+     * @param {string} param0.track - Track number or identifier.
+     * @param {string} param0.year - Year value.
+     */
+    function addRow({ fileName, title, artist, album, track, year }) {
+      /*
+            Receives: a Data set containing 6 items
+            Returns:  nothing
+       */
+      const tr = document.createElement('tr');// Create a new table row element
+
+      // Helper to create a cell with safe text content
+      function cell(text) {
+        /*
+            Receives: [text]
+            Returns:  data contained in [text]
+       */
+        const td = document.createElement('td');
+        td.textContent = text || '';// Ensure we never set undefined; use empty string as fallback
+        return td;
+      }
+
+      // Append cells for each piece of metadata in the desired column order
+      tr.appendChild(cell(fileName));
+      tr.appendChild(cell(title));
+      tr.appendChild(cell(artist));
+      tr.appendChild(cell(album));
+      tr.appendChild(cell(track));
+      tr.appendChild(cell(year));
+
+      // Append the completed row to the table body
+      tbody.appendChild(tr);
+    }
+
+    // PASS an ASYNC function to the Command Button Event Listener as an argument
+    pickFolderBtn.addEventListener('click', handlePickFolder);
+  </script>
+</body>
+</html>

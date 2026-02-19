@@ -1,0 +1,13 @@
+/*
+
+Author: Joshua D. Thomas
+Date: 02-18-2026
+Graduate Student at Wilmington University, M.S. - IST in Internet/Web Design
+
+Objective:	To create a ID3 Tag (.MP3 files) Reader that one can utilize in a Browser.
+		Integrated with CDN libraries.
+
+Purpose:	To demonstrate Front-end Commenting by Joshua D. Thomas
+		To share ideas with and collaborate with the Software Development community
+
+*/
