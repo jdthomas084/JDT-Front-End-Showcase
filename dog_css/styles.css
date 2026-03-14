@@ -1,0 +1,34 @@
+body {
+    font-size: 16px;
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    display: block;
+    width: 70%;
+    margin: auto;
+    border: 2px solid white;
+    padding: 1%;
+    text-align: left;
+}
+
+.pattern {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 1%;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 1%;
+}

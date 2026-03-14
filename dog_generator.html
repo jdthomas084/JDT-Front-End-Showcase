@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Document HEADER -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dog Generator</title>
+    <link rel="stylesheet" href="dog_css/styles.css" />
+</head>
+
+<!-- Document BODY -->
+
+<body>
+    <h1>Random Dog Generator</h1>
+    <div id="divContainer" class="container">
+
+    </div>
+
+    <script>
+        //Declare variables
+        intPattern = Math.floor(Math.random() * 200 + 1);
+        //Random Number of Canines
+        for(var x = 0; x < intPattern; ++x){
+            const imgTag1 = '<img src="' + 'dog_images/golden_retriever.png' + '" alt="' + 'A Golden Retriever' + '">';
+            const imgTag2 = '<img src="' + 'dog_images/saint_bernard.png' + '" alt="' + 'A Saint Bernard' + '">';
+            const imgTag3 = '<img src="' + 'dog_images/german_shepherd.png' + '" alt="' + 'A German Shepherd' + '">';
+            const imgTag4 = '<img src="' + 'dog_images/poodle.png' + '" alt="' + 'A Poodle' + '">';
+            //
+            //Choose a Dog from one to four
+            const n = Math.floor(Math.random() * 4) + 1; // 1..4
+            const selected = ({1: imgTag1, 2: imgTag2, 3: imgTag3, 4: imgTag4})[n];
+            //
+            let container = document.getElementById("divContainer");
+            let newPattern = document.createElement("SPAN");
+            newPattern.className = "pattern";
+            newPattern.innerHTML += selected;//Aggregate the HTML
+            container.appendChild(newPattern);
+        }        
+    </script>
+</body>
+
+</html>
